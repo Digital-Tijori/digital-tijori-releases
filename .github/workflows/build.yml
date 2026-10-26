@@ -43,13 +43,11 @@ jobs:
           token: ${{ secrets.APP_REPO_TOKEN }} # read-only on the app repo
           persist-credentials: false
 
-      - name: The tag matches the app version
+      - name: Set the app version from the tag
         shell: bash
         env:
           TAG: ${{ inputs.tag }}
-        run: |
-          v=$(node -p "require('./src-tauri/tauri.conf.json').version")
-          if [ "v$v" != "$TAG" ]; then echo "Tag $TAG but src-tauri/tauri.conf.json says $v"; exit 1; fi
+        run: node scripts/set-version.mjs "$TAG"
 
       - name: Linux packages
         if: runner.os == 'Linux'
