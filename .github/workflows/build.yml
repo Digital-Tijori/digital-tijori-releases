@@ -10,6 +10,11 @@ on:
         description: Tag of the release in Digital-Tijori/Digital-Tijori (for example v0.2.0)
         required: true
         type: string
+      prerelease:
+        description: Pre-release, so build for macOS Apple silicon only
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write # create the release in this repo with the built-in token; no other repo is written
@@ -24,12 +29,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
+      # A pre-release is tested on Apple silicon only, so it skips the other platforms.
       matrix:
-        include:
-          - { name: macOS Apple silicon, os: macos-latest, target: aarch64-apple-darwin, args: '--target aarch64-apple-darwin' }
-          - { name: macOS Intel, os: macos-latest, target: x86_64-apple-darwin, args: '--target x86_64-apple-darwin' }
-          - { name: Windows, os: windows-latest, target: '', args: '' }
-          - { name: Linux, os: ubuntu-22.04, target: '', args: '' }
+        include: ${{ fromJSON(inputs.prerelease && '[{"name":"macOS Apple silicon","os":"macos-latest","target":"aarch64-apple-darwin","args":"--target aarch64-apple-darwin"}]' || '[{"name":"macOS Apple silicon","os":"macos-latest","target":"aarch64-apple-darwin","args":"--target aarch64-apple-darwin"},{"name":"macOS Intel","os":"macos-latest","target":"x86_64-apple-darwin","args":"--target x86_64-apple-darwin"},{"name":"Windows","os":"windows-latest","target":"","args":""},{"name":"Linux","os":"ubuntu-22.04","target":"","args":""}]') }}
     env:
       # baked into the app at compile time (public values, set under Settings > Secrets and variables > Actions > Variables)
       TIJORI_LICENSE_URL: ${{ vars.TIJORI_LICENSE_URL }}
@@ -80,5 +82,5 @@ jobs:
           releaseName: Digital Tijori ${{ inputs.tag }}
           releaseBody: Download the file for your system. Open the app, enter the email you paid with, and click the button we send to that inbox.
           releaseDraft: false
-          prerelease: false
+          prerelease: ${{ inputs.prerelease }}
           args: ${{ matrix.args }}
