@@ -77,6 +77,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # this repo only
           APPIMAGE_EXTRACT_AND_RUN: '1'
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }} # signs the update files; the key has no password
         with:
           tagName: ${{ inputs.tag }}
           releaseName: Digital Tijori ${{ inputs.tag }}
