@@ -5,15 +5,16 @@ Copyright (c) 2026 Digital Tijori. All rights reserved.
 Permission is granted to read and inspect this source code for the sole
 purpose of security review and audit.
 
-Without a paid license from the copyright holder, you may NOT:
-- run, compile, install or otherwise use this software or any part of it,
-  for personal, internal, commercial or any other purpose;
+You may NOT, under any circumstances:
+- compile or build this code, or run any build of it you made yourself;
 - copy, modify, fork, redistribute or sublicense this code;
 - use this code, or code derived from it, in another product or service;
 - circumvent or remove any license check.
 
-A license to use the compiled application is sold separately at
-https://digital-tijori.prajwalrajup.in and is governed by its own terms.
+The official compiled application, downloaded from the Releases page or
+https://digital-tijori.prajwalrajup.in, may be used only under a paid
+license sold there and governed by its own terms. Nothing in that license
+extends to this source code.
 
 THE CODE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. THE COPYRIGHT
 HOLDER IS NOT LIABLE FOR ANY CLAIM OR DAMAGES ARISING FROM IT.
